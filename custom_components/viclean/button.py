@@ -25,10 +25,16 @@ BUTTONS = (
     ViCleanButtonDescription(key="start_gent", icon="mdi:human-male",
                              press=lambda d: d.start(protocol.GENT)),
     ViCleanButtonDescription(key="stop", icon="mdi:stop", press=lambda d: d.stop()),
-    ViCleanButtonDescription(key="nozzle_maintenance", icon="mdi:spray-bottle",
-                             press=lambda d: d.nozzle_maintenance(True)),
-    ViCleanButtonDescription(key="nozzle_retract", icon="mdi:arrow-collapse-left",
-                             press=lambda d: d.nozzle_maintenance(False)),
+    ViCleanButtonDescription(key="warm_water", icon="mdi:water-boiler",
+                             press=lambda d: d.command(protocol.TOGGLE_WARM_WATER)),
+    ViCleanButtonDescription(key="buzzer", icon="mdi:volume-high",
+                             press=lambda d: d.command(protocol.TOGGLE_BUZZER)),
+    ViCleanButtonDescription(key="nozzle_forward", icon="mdi:arrow-right-bold",
+                             press=lambda d: d.command(protocol.NOZZLE_FORWARD)),
+    ViCleanButtonDescription(key="nozzle_backward", icon="mdi:arrow-left-bold",
+                             press=lambda d: d.command(protocol.NOZZLE_BACKWARD)),
+    ViCleanButtonDescription(key="nozzle_wiggle", icon="mdi:wave",
+                             press=lambda d: d.command(protocol.NOZZLE_WIGGLE)),
 )
 
 

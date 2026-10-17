@@ -33,11 +33,20 @@
       "stop": {
         "name": "Стоп"
       },
-      "nozzle_maintenance": {
-        "name": "Висунути насадку (сервіс)"
+      "warm_water": {
+        "name": "Тепла вода вкл/викл"
       },
-      "nozzle_retract": {
-        "name": "Сховати насадку"
+      "buzzer": {
+        "name": "Звук вкл/викл"
+      },
+      "nozzle_forward": {
+        "name": "Насадка вперед"
+      },
+      "nozzle_backward": {
+        "name": "Насадка назад"
+      },
+      "nozzle_wiggle": {
+        "name": "Покачування"
       }
     },
     "number": {
@@ -60,6 +69,33 @@
       },
       "pulsate": {
         "name": "Пульсація"
+      },
+      "service": {
+        "name": "Сервісний режим (насадка назовні)"
+      }
+    }
+  },
+  "services": {
+    "send_raw": {
+      "name": "Надіслати сиру команду",
+      "description": "Для дослідження протоколу: надсилає кадр і повертає відповіді.",
+      "fields": {
+        "function": {
+          "name": "Функція",
+          "description": "Функція Modbus, напр. 5 (запис) або 3 (читання)."
+        },
+        "command": {
+          "name": "Команда",
+          "description": "Байт команди."
+        },
+        "data": {
+          "name": "Дані",
+          "description": "Байти параметрів у hex."
+        },
+        "wait": {
+          "name": "Очікування",
+          "description": "Скільки секунд збирати відповіді."
+        }
       }
     }
   }

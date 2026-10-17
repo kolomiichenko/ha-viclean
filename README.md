@@ -22,7 +22,10 @@ Home Assistant 2026.10 with the built-in Bluetooth adapter of a Raspberry Pi 3B+
 | Water pressure, Nozzle position, Water temperature | levels 0–5; used for the next start and applied at once while a program runs |
 | Oscillation, Rotation, Pulsation | used for the next start and toggled at once while a program runs |
 | Program running | assumed state: on after a start, off after Stop, a disconnect or 5 minutes |
-| Extend nozzle (service) / Retract nozzle | move the nozzle out without water for cleaning, and back in |
+| Service mode | switch: moves the nozzle out without water for cleaning, and back in |
+| Warm water on/off, Beep on/off | toggles (the toilet does not report their state) |
+| Nozzle forward / backward / wiggle | move the nozzle during a program |
+| `viclean.send_raw` service | sends any frame and returns the replies, for protocol exploration |
 
 Settings are kept by Home Assistant (restored after a restart) and sent with
 every start, like the app does.

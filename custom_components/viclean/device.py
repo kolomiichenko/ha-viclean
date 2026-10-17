@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import time
 from collections.abc import Callable
 
 from bleak import BleakClient
@@ -36,7 +37,10 @@ class ViCleanDevice:
         self.name = name
         self.settings = protocol.Settings()
         self.running: int | None = None  # LADY / GENT while a program runs
+        self.nozzle_out = False  # service position (assumed)
         self.last_reply: protocol.Reply | None = None
+        self._replies: list[bytes] | None = None  # collected by send_raw
+        self._last_packet, self._last_packet_at = b"", 0.0
         self._client: BleakClient | None = None
         self._lock = asyncio.Lock()
         self._listeners: list[Callable[[], None]] = []
@@ -69,6 +73,22 @@ class ViCleanDevice:
 
     async def nozzle_maintenance(self, extend: bool = True) -> None:
         await self._send(protocol.nozzle_maintenance(extend))
+        self.nozzle_out = extend
+        self._notify()
+
+    async def command(self, sub: int) -> None:
+        """Sends a command without parameters (toggles, nozzle moves)."""
+        await self._send(protocol.toggle(sub))
+
+    async def send_raw(self, function: int, command: int, data: bytes, wait: float = 1.5) -> list[str]:
+        """Sends any frame and returns the raw replies received within wait seconds."""
+        self._replies = []
+        try:
+            await self._send(protocol.frame(function, command, data))
+            await asyncio.sleep(wait)
+            return [r.decode("ascii", errors="replace").strip() for r in self._replies]
+        finally:
+            self._replies = None
 
     async def set_level(self, key: str, value: int) -> None:
         """Stores pump/nozzle/temperature, applies it at once if a program runs."""
@@ -124,6 +144,11 @@ class ViCleanDevice:
     async def _connect(self) -> BleakClient:
         if self._client and self._client.is_connected:
             return self._client
+        if self._client:
+            # Drop the old client first, otherwise its notification handler
+            # stays registered on the link and every reply arrives twice.
+            await self._close(self._client)
+            self._client = None
         ble_device: BLEDevice | None = bluetooth.async_ble_device_from_address(
             self.hass, self.address, connectable=True
         )
@@ -141,6 +166,12 @@ class ViCleanDevice:
         return client
 
     def _on_data(self, _sender: object, data: bytearray) -> None:
+        now = time.monotonic()
+        if bytes(data) == self._last_packet and now - self._last_packet_at < 0.05:
+            return  # the same notification delivered twice by the stack
+        self._last_packet, self._last_packet_at = bytes(data), now
+        if self._replies is not None:
+            self._replies.append(bytes(data))
         reply = protocol.parse_reply(bytes(data))
         _LOGGER.debug("%s: received %s -> %s", self.name, bytes(data), reply)
         if reply:
@@ -166,8 +197,17 @@ class ViCleanDevice:
         if self.running is not None:
             return
         client, self._client = self._client, None
-        if client and client.is_connected:
-            await client.disconnect()
+        if client:
+            await self._close(client)
+
+    @staticmethod
+    async def _close(client: BleakClient) -> None:
+        try:
+            if client.is_connected:
+                await client.stop_notify(NUS_TX)
+                await client.disconnect()
+        except (BleakError, TimeoutError):
+            pass
 
     async def shutdown(self) -> None:
         for timer in (self._disconnect_timer, self._program_timer):

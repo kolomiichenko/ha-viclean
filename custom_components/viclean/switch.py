@@ -23,7 +23,8 @@ SWITCHES = (
 
 async def async_setup_entry(hass: HomeAssistant, entry: ViCleanConfigEntry,
                             async_add_entities: AddConfigEntryEntitiesCallback) -> None:
-    async_add_entities(ViCleanFlag(entry.runtime_data, desc) for desc in SWITCHES)
+    async_add_entities([*(ViCleanFlag(entry.runtime_data, desc) for desc in SWITCHES),
+                        ViCleanService(entry.runtime_data)])
 
 
 class ViCleanFlag(ViCleanEntity, SwitchEntity, RestoreEntity):
@@ -50,3 +51,23 @@ class ViCleanFlag(ViCleanEntity, SwitchEntity, RestoreEntity):
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         await self.device.set_flag(self.entity_description.key, False)
+
+
+class ViCleanService(ViCleanEntity, SwitchEntity):
+    """Service position: the nozzle moves out without water for cleaning."""
+
+    _attr_assumed_state = True
+    _attr_icon = "mdi:wrench"
+
+    def __init__(self, device: ViCleanDevice) -> None:
+        super().__init__(device, "service")
+
+    @property
+    def is_on(self) -> bool:
+        return self.device.nozzle_out
+
+    async def async_turn_on(self, **kwargs: Any) -> None:
+        await self.device.nozzle_maintenance(True)
+
+    async def async_turn_off(self, **kwargs: Any) -> None:
+        await self.device.nozzle_maintenance(False)

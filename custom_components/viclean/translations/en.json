@@ -33,11 +33,20 @@
       "stop": {
         "name": "Stop"
       },
-      "nozzle_maintenance": {
-        "name": "Extend nozzle (service)"
+      "warm_water": {
+        "name": "Warm water on/off"
       },
-      "nozzle_retract": {
-        "name": "Retract nozzle"
+      "buzzer": {
+        "name": "Beep on/off"
+      },
+      "nozzle_forward": {
+        "name": "Nozzle forward"
+      },
+      "nozzle_backward": {
+        "name": "Nozzle backward"
+      },
+      "nozzle_wiggle": {
+        "name": "Nozzle wiggle"
       }
     },
     "number": {
@@ -60,6 +69,33 @@
       },
       "pulsate": {
         "name": "Pulsation"
+      },
+      "service": {
+        "name": "Service mode (nozzle out)"
+      }
+    }
+  },
+  "services": {
+    "send_raw": {
+      "name": "Send raw command",
+      "description": "Protocol exploration: sends a frame and returns the replies.",
+      "fields": {
+        "function": {
+          "name": "Function",
+          "description": "Modbus function, e.g. 5 (write coil) or 3 (read)."
+        },
+        "command": {
+          "name": "Command",
+          "description": "Command byte."
+        },
+        "data": {
+          "name": "Data",
+          "description": "Parameter bytes as hex."
+        },
+        "wait": {
+          "name": "Wait",
+          "description": "Seconds to collect replies."
+        }
       }
     }
   }
