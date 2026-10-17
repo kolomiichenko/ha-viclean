@@ -1,0 +1,63 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "confirm": {
+        "description": "Set up {name}?"
+      },
+      "user": {
+        "description": "Choose the ViClean to add",
+        "data": {
+          "address": "Device"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "This ViClean is already configured",
+      "no_devices_found": "No ViClean found nearby over Bluetooth"
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "running": {
+        "name": "Program running"
+      }
+    },
+    "button": {
+      "start_lady": {
+        "name": "Start lady wash"
+      },
+      "start_gent": {
+        "name": "Start rear wash"
+      },
+      "stop": {
+        "name": "Stop"
+      },
+      "nozzle_maintenance": {
+        "name": "Nozzle cleaning"
+      }
+    },
+    "number": {
+      "pump": {
+        "name": "Water pressure"
+      },
+      "nozzle": {
+        "name": "Nozzle position"
+      },
+      "temperature": {
+        "name": "Water temperature"
+      }
+    },
+    "switch": {
+      "oscillate": {
+        "name": "Oscillation"
+      },
+      "rotate": {
+        "name": "Rotation"
+      },
+      "pulsate": {
+        "name": "Pulsation"
+      }
+    }
+  }
+}

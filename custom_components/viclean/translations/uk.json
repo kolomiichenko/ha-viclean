@@ -1,0 +1,63 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "confirm": {
+        "description": "Додати {name}?"
+      },
+      "user": {
+        "description": "Оберіть ViClean",
+        "data": {
+          "address": "Пристрій"
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Цей ViClean уже додано",
+      "no_devices_found": "Поруч не знайдено ViClean по Bluetooth"
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "running": {
+        "name": "Програма працює"
+      }
+    },
+    "button": {
+      "start_lady": {
+        "name": "Жіночий душ"
+      },
+      "start_gent": {
+        "name": "Задній душ"
+      },
+      "stop": {
+        "name": "Стоп"
+      },
+      "nozzle_maintenance": {
+        "name": "Очищення насадки"
+      }
+    },
+    "number": {
+      "pump": {
+        "name": "Тиск води"
+      },
+      "nozzle": {
+        "name": "Положення насадки"
+      },
+      "temperature": {
+        "name": "Температура води"
+      }
+    },
+    "switch": {
+      "oscillate": {
+        "name": "Осциляція"
+      },
+      "rotate": {
+        "name": "Обертання"
+      },
+      "pulsate": {
+        "name": "Пульсація"
+      }
+    }
+  }
+}
