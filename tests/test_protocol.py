@@ -75,3 +75,8 @@ def test_parse_rejects_garbage():
     assert p.parse_reply(b":FFFF0585040\r\n") is None
     good = p.set_temperature(2)
     assert p.parse_reply(good[:-4] + b"00\r\n") is None
+
+
+def test_nozzle_maintenance():
+    assert p.nozzle_maintenance().startswith(b":FFFF05820100")
+    assert p.nozzle_maintenance(False).startswith(b":FFFF05820000")

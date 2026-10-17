@@ -34,7 +34,10 @@
         "name": "Стоп"
       },
       "nozzle_maintenance": {
-        "name": "Очищення насадки"
+        "name": "Висунути насадку (сервіс)"
+      },
+      "nozzle_retract": {
+        "name": "Сховати насадку"
       }
     },
     "number": {

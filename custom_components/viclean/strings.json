@@ -34,7 +34,10 @@
         "name": "Stop"
       },
       "nozzle_maintenance": {
-        "name": "Nozzle cleaning"
+        "name": "Extend nozzle (service)"
+      },
+      "nozzle_retract": {
+        "name": "Retract nozzle"
       }
     },
     "number": {

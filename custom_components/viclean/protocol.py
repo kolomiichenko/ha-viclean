@@ -95,8 +95,9 @@ def toggle(sub: int) -> bytes:
     return frame(WRITE_COIL, sub)
 
 
-def nozzle_maintenance() -> bytes:
-    return frame(WRITE_COIL, NOZZLE_MAINTENANCE, bytes([0x01, 0x00]))
+def nozzle_maintenance(extend: bool = True) -> bytes:
+    """Moves the nozzle out (without water) for cleaning, or back in."""
+    return frame(WRITE_COIL, NOZZLE_MAINTENANCE, bytes([0x01 if extend else 0x00, 0x00]))
 
 
 @dataclass

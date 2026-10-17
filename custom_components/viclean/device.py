@@ -67,8 +67,8 @@ class ViCleanDevice:
         await self._send(protocol.break_program())
         self._program_finished()
 
-    async def nozzle_maintenance(self) -> None:
-        await self._send(protocol.nozzle_maintenance())
+    async def nozzle_maintenance(self, extend: bool = True) -> None:
+        await self._send(protocol.nozzle_maintenance(extend))
 
     async def set_level(self, key: str, value: int) -> None:
         """Stores pump/nozzle/temperature, applies it at once if a program runs."""

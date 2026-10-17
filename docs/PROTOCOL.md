@@ -35,7 +35,7 @@ Commands use function `05`:
 | `88` / `89` / `8D` | – | toggle oscillation / rotation / pulsation |
 | `8A` | – | toggle warm water |
 | `65` | – | toggle buzzer |
-| `82` | `01 00` | nozzle maintenance |
+| `82` | `01 00` / `00 00` | nozzle maintenance: move out (no water) / back in |
 | `70` / `71` / `72` | – | move nozzle CW / CCW / wiggle |
 
 Start flags: bits 0–1 = program + 1 (1 = lady, 2 = rear), bit 2 = oscillate,

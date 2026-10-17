@@ -26,8 +26,9 @@ BUTTONS = (
                              press=lambda d: d.start(protocol.GENT)),
     ViCleanButtonDescription(key="stop", icon="mdi:stop", press=lambda d: d.stop()),
     ViCleanButtonDescription(key="nozzle_maintenance", icon="mdi:spray-bottle",
-                             entity_registry_enabled_default=False,
-                             press=lambda d: d.nozzle_maintenance()),
+                             press=lambda d: d.nozzle_maintenance(True)),
+    ViCleanButtonDescription(key="nozzle_retract", icon="mdi:arrow-collapse-left",
+                             press=lambda d: d.nozzle_maintenance(False)),
 )
 
 
