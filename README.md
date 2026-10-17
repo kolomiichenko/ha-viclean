@@ -1,7 +1,14 @@
 # Villeroy & Boch ViClean for Home Assistant
 
-Custom integration that controls a **Villeroy & Boch ViClean** shower toilet
-over Bluetooth LE, locally, without the ViClean app or any cloud.
+Custom [Home Assistant](https://www.home-assistant.io/) integration that
+controls a **Villeroy & Boch ViClean** shower toilet (Dusch-WC, washlet,
+bidet toilet) over Bluetooth LE, locally, without the ViClean app or any cloud:
+start and stop the lady and rear wash, set water temperature, pressure and
+nozzle position, and use them in automations, scripts and dashboards.
+
+Other ViClean models that work with the Villeroy & Boch *ViClean* app over
+Bluetooth (they advertise as `ViClean…` with the Nordic UART service) will
+probably work too; reports are welcome.
 
 Tested with a **ViClean-I 100** (advertises as `ViClean-I 100 XXXXXXXX`) on
 Home Assistant 2026.10 with the built-in Bluetooth adapter of a Raspberry Pi 3B+.
